@@ -1,0 +1,12 @@
+C:\Users\youse\source\repos\PowerShellWrappers\obj\Debug\net8.0\PowerShellWrappers.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\youse\source\repos\PowerShellWrappers\obj\Debug\net8.0\PowerShellWrappers.AssemblyInfoInputs.cache
+C:\Users\youse\source\repos\PowerShellWrappers\obj\Debug\net8.0\PowerShellWrappers.AssemblyInfo.cs
+C:\Users\youse\source\repos\PowerShellWrappers\obj\Debug\net8.0\PowerShellWrappers.csproj.CoreCompileInputs.cache
+C:\Users\youse\source\repos\PowerShellWrappers\obj\Debug\net8.0\PowerShellWrappers.genruntimeconfig.cache
+C:\Users\youse\source\repos\PowerShellWrappers\bin\Debug\net8.0\engine.exe
+C:\Users\youse\source\repos\PowerShellWrappers\bin\Debug\net8.0\engine.deps.json
+C:\Users\youse\source\repos\PowerShellWrappers\bin\Debug\net8.0\engine.runtimeconfig.json
+C:\Users\youse\source\repos\PowerShellWrappers\bin\Debug\net8.0\engine.dll
+C:\Users\youse\source\repos\PowerShellWrappers\obj\Debug\net8.0\engine.dll
+C:\Users\youse\source\repos\PowerShellWrappers\obj\Debug\net8.0\refint\engine.dll
+C:\Users\youse\source\repos\PowerShellWrappers\obj\Debug\net8.0\ref\engine.dll
