@@ -34,9 +34,9 @@ namespace PowerShellWrappers.Engine
             FOF_CONFIRMMOUSE = 0x0002,
             FOF_SILENT = 0x0004,
             FOF_RENAMEONCOLLISION = 0x0008,
-            FOF_NOCONFIRMATION = 0x0010, // Don't prompt the user.
+            FOF_NOCONFIRMATION = 0x0010,
             FOF_WANTMAPPINGHANDLE = 0x0020,
-            FOF_ALLOWUNDO = 0x0040, // Allow undo
+            FOF_ALLOWUNDO = 0x0040,
             FOF_FILESONLY = 0x0080,
             FOF_SIMPLEPROGRESS = 0x0100,
             FOF_NOCONFIRMMKDIR = 0x0200,
@@ -62,6 +62,7 @@ namespace PowerShellWrappers.Engine
                 0x0000007B => "The filename, directory name, or volume label syntax is incorrect.",
                 0x000000C0 => "The operation was canceled by the user.",
                 0x00000103 => "The system cannot find the file specified.",
+                0x4C7 => "The operation was canceled by the user.",
                 _ => errorCode.ToString()
             };
         }
