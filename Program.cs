@@ -18,17 +18,9 @@ namespace PowerShellWrappers
                 {
                     Operations.Copy(ToPairwise(items));
                 }
-                else if (operation.ToUpper().Equals("MERGECOPY"))
-                {
-                    Operations.MergeCopy(ToPairwise(items));
-                }
                 else if (operation.ToUpper().Equals("MOVE"))
                 {
                     Operations.Move(ToPairwise(items));
-                }
-                else if (operation.ToUpper().Equals("MERGEMOVE"))
-                {
-                    Operations.MergeMove(ToPairwise(items));
                 }
                 else throw new Exception("Command not recognized.");
             }

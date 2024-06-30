@@ -1,6 +1,6 @@
 . "$PSScriptRoot\Helpers.ps1"
 
-function Move-ItemWrapper {
+function Copy-ItemWrapper {
     [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, Position = 0)]
@@ -66,7 +66,7 @@ function Move-ItemWrapper {
                     return "`"$($_.Source)`" `"$($_.Destination)`""
                 }
                 $argsString = $argItems -join " "
-                Invoke-Expression ". `"$PSScriptRoot\engine.exe`" `"MOVE`" $argsString"
+                Invoke-Expression ". `"$PSScriptRoot\engine.exe`" `"COPY`" $argsString"
             }
         }
         catch 

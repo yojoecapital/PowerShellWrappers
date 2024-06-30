@@ -1,13 +1,10 @@
 . "$PSScriptRoot\Helpers.ps1"
 
-function Move-ItemWrapper {
+function Remove-ItemWrapper {
     [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, Position = 0)]
         [String[]]$path,
-
-        [Parameter(Mandatory = $true, Position = 1)]
-        [String]$destination,
 
         [Parameter(Mandatory = $false)]
         [String[]]$include,
@@ -37,7 +34,6 @@ function Move-ItemWrapper {
         {
             $params = @{
                 path = $path
-                destination = $destination
                 include = $include
                 exclude = $exclude
                 filter = $filter
@@ -52,21 +48,21 @@ function Move-ItemWrapper {
             {
                 $params.Add('depth', $depth)
             }
-            $operations = PairOperations @params
+            $operations = SingleOperations @params
             $allOperations = $operations.leaf + $operations.container
             $display = $allOperations | Out-String
             if (
                 ($allOperations.Count -gt 0) -and 
                 ($PSCmdlet.ShouldProcess(
                     "$($allOperations.Count) item(s)`":`n$display`"Files: $($operations.leaf.Count), Directories: $($operations.container.Count)", 
-                    "Move Items"
+                    "Recycle Items"
                 ))
             ) {
                 $argItems = $allOperations | ForEach-Object {
-                    return "`"$($_.Source)`" `"$($_.Destination)`""
+                    return "`"$_`""
                 }
                 $argsString = $argItems -join " "
-                Invoke-Expression ". `"$PSScriptRoot\engine.exe`" `"MOVE`" $argsString"
+                Invoke-Expression ". `"$PSScriptRoot\engine.exe`" `"DELETE`" $argsString"
             }
         }
         catch 

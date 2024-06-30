@@ -51,8 +51,12 @@ function NormalizePath {
     
     process {
         $seperator = [System.IO.Path]::DirectorySeparatorChar
-        $path = [System.IO.Path]::GetFullPath($path)
-        $path = [System.IO.Path]::GetRelativePath((Get-Location).Path, $path)
+        $wd = (Get-Location).Path
+        if (-not [System.IO.Path]::IsPathRooted($path))
+        {
+            $path = Join-Path $wd $path
+        }
+        $path = [System.IO.Path]::GetRelativePath($wd, $path)
         if ($path.EndsWith($seperator))
         {
             $path = $path.Substring(0, $path.Length - 1)
@@ -99,6 +103,7 @@ function PairOperations {
         $destination = NormalizePath $destination
         $items = Get-Item @params -Path $path 
         $params.Add('Recurse', $recurse)
+        $params.Add('File', $true)
         if ($depth)
         {
             $params.Add('Depth', $depth)
@@ -145,6 +150,89 @@ function PairOperations {
                         Source = $item
                         Destination = $finish
                     }
+                }
+                else
+                {
+                    throw "Cannot find path '$item' because it does not exist."
+                }
+            }
+        }
+        return [PSCustomObject]@{
+            leaf = $leafOperations
+            container = $containerOperations
+        }
+    }
+}
+
+function SingleOperations {
+    [CmdletBinding()]
+    param (
+        [String[]]$path,
+
+        [String[]]$include,
+        
+        [String[]]$exclude,
+
+        [String]$filter,
+
+        [switch]$recurse,
+
+        [UInt32]$depth,
+
+        [switch]$force,
+
+        [string[]]$literalPath
+    )
+
+    process {
+        $params = @{
+            Include = $include
+            Exclude = $exclude
+            Filter = $filter
+            Force = $force
+            ErrorAction = 'Stop'
+        }
+        if ($literalPath)
+        {
+            $params.Add('LiteralPath', $literalPath)
+        }
+        $seperator = [System.IO.Path]::DirectorySeparatorChar
+        $items = Get-Item @params -Path $path 
+        $params.Add('Recurse', $recurse)
+        $params.Add('File', $true)
+        if ($depth)
+        {
+            $params.Add('Depth', $depth)
+        }
+        $leafOperations = @()
+        $containerOperations = @()
+        foreach ($item in $items)
+        {
+            $item = NormalizePath $item.FullName
+            if (Test-Path $item -PathType 'Container')
+            {
+                if ($filter -or $include -or $exclude)
+                {
+                    # A directory with filtering
+                    $nestedItems = Get-ChildItem @params -Path $item
+                    foreach ($nestedItem in $nestedItems)
+                    {
+                        $nestedItem = NormalizePath $nestedItem.FullName
+                        $leafOperations += $nestedItem
+                    }
+                }
+                else
+                {
+                    # A directory
+                    $containerOperations += ($item + $seperator)
+                }
+            }
+            else
+            {
+                if (Test-Path $item -PathType 'Leaf')
+                {
+                    # A leaf
+                    $leafOperations += $item
                 }
                 else
                 {
