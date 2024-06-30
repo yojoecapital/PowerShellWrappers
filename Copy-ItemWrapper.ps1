@@ -59,7 +59,7 @@ function Copy-ItemWrapper {
                 ($allOperations.Count -gt 0) -and 
                 ($PSCmdlet.ShouldProcess(
                     "$($allOperations.Count) item(s)`":`n$display`"Files: $($operations.leaf.Count), Directories: $($operations.container.Count)", 
-                    "Move Items"
+                    "Copy Items"
                 ))
             ) {
                 $argItems = $allOperations | ForEach-Object {
