@@ -4,8 +4,8 @@ foreach ($file in $files) {
     . "$($file.FullName)"
 }
 
-# Export all functions defined in the module
-$functions = Get-Command -CommandType Function | Where-Object { $_.ScriptBlock.File -in $files.FullName }
-foreach ($function in $functions) {
-    Export-ModuleMember -Function $function.Name
-}
+Export-ModuleMember 'Remove-ItemWrapper'
+Export-ModuleMember 'Move-ItemWrapper'
+Export-ModuleMember 'Copy-ItemWrapper'
+Export-ModuleMember 'Set-Aliases'
+Export-ModuleMember 'Reset-Aliases'
