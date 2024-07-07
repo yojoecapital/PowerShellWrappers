@@ -52,6 +52,11 @@ function Move-ItemWrapper {
             {
                 $params.Add('depth', $depth)
             }
+            if ($force)
+            {
+                Move-Item @params
+                return
+            }
             $operations = PairOperations @params
             $allOperations = $operations.leaf + $operations.container
             $display = $allOperations | Out-String

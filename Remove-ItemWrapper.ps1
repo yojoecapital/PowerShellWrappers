@@ -48,6 +48,11 @@ function Remove-ItemWrapper {
             {
                 $params.Add('depth', $depth)
             }
+            if ($force)
+            {
+                Remove-Item @params
+                return
+            }
             $operations = SingleOperations @params
             $allOperations = $operations.leaf + $operations.container
             $display = $allOperations | Out-String

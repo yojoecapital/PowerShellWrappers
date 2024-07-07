@@ -52,6 +52,11 @@ function Copy-ItemWrapper {
             {
                 $params.Add('depth', $depth)
             }
+            if ($force)
+            {
+                Copy-Item @params
+                return
+            }
             $operations = PairOperations @params
             $allOperations = $operations.leaf + $operations.container
             $display = $allOperations | Out-String
