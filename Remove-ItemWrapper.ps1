@@ -50,7 +50,7 @@ function Remove-ItemWrapper {
             }
             if ($force)
             {
-                Remove-Item @params
+                Remove-Item @params -WhatIf:$WhatIfPreference -Confirm:$ConfirmPreference
                 return
             }
             $operations = SingleOperations @params

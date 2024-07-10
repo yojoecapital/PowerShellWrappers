@@ -54,7 +54,8 @@ function Move-ItemWrapper {
             }
             if ($force)
             {
-                Move-Item @params
+
+                Move-Item @params -WhatIf:$WhatIfPreference -Confirm:$ConfirmPreference
                 return
             }
             $operations = PairOperations @params

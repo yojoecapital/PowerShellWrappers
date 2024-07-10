@@ -54,7 +54,7 @@ function Copy-ItemWrapper {
             }
             if ($force)
             {
-                Copy-Item @params
+                Copy-Item @params -WhatIf:$WhatIfPreference -Confirm:$ConfirmPreference
                 return
             }
             $operations = PairOperations @params
